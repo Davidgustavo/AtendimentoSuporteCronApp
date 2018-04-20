@@ -1,0 +1,437 @@
+<h3></h3>
+
+<!-- div row para pesquisa -->
+<!--<div class="row">-->
+
+    <div ng-hide="Resposta.inserting || Resposta.editing" data-component="crn-datasource-filter" id="crn-datasource-filter-general" class="">
+        <div class="form-group">
+            <label for="textinput-filter" class="">{{"template.crud.search" | translate}}</label>
+            <input type="text" ng-model="vars.search" cronapp-filter="resumoResposta;" cronapp-filter-operator="" cronapp-filter-caseinsensitive="false" cronapp-filter-autopost="true" crn-datasource="Resposta" class="form-control" value="" placeholder="{{'template.crud.search' | translate}}">
+        </div>
+    </div>
+
+<div data-component="crn-button" id="crn-button-564202" class="">
+    <button class="btn btn-primary" type="submit" onclick="" data-component="crn-button" ng-click="Resposta.startInserting()" ng-hide="Resposta.inserting || Resposta.editing"><i class="fa fa-user"></i> <span class="">{{"template.crud.new" | translate}}</span></button>
+</div>
+<!-- fim div row para pesquisa -->
+<!--</div>-->
+
+<datasource filter="" name="Resposta" entity="api/cronapi/crud/app.entity.Resposta" keys="id" rows-per-page="100" delete-message="Deseja remover?" class=""></datasource>
+<div class="component-holder" data-component="crn-grid" id="crn-grid-Resposta">
+    <div crn-datasource="Resposta" class="" ng-hide="Resposta.editing || Resposta.inserting">
+        <table class="table  table-bordered table-hover table-striped">
+            <thead>
+            <tr class="table-header">
+                <th class="">
+                    <div class="">Atendimento</div>
+                </th>
+                <th class="">
+                    <div class="">Resumo Resposta</div>
+                </th>
+                <th class="">
+                    <div class="">{{"template.crud.actions" | translate}}</div>
+                </th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr class="table-content" ng-repeat="rowData in datasource.data">
+                <td class="">
+                    <div class="">
+                            {{rowData.atendimento.canalAtendimento}}
+                    </div>
+                </td>
+                <td class="">
+                    <div class="">
+                                {{rowData.resumoResposta  }}
+                    </div>
+                </td>
+                <td class="">
+                    <div class="">
+                        <button class="btn btn-default btn-sm" data-component="crn-button" type="submit" ng-click="datasource.startEditing(rowData)"><i class="fa fa-edit"></i></button>
+                        <button class="btn btn-default btn-sm" data-component="crn-button" type="submit" ng-click="datasource.remove(rowData)"><i class="fa fa-times"></i></button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <div class="table-footer-controls">
+            <button class="btn btn-default btn-block btn-clicked" data-component="crn-button" ng-show="datasource.hasNextPage()" ng-click="datasource.nextPage()">{{"template.crud.load_more" | translate}}...</button>
+        </div>
+    </div>
+</div>
+<div data-component="crn-form" id="crn-form-form-Resposta">
+    <div class="form" ng-show="Resposta.editing || Resposta.inserting">
+        <form crn-datasource="Resposta" class="">
+            <div class="tool-bar" ng-hide="datasource.editing || datasource.inserting">
+                <button class="btn btn-primary" data-component="crn-button" ng-click="datasource.startInserting()"><i class="glyphicon glyphicon-plus-sign"></i></button>
+                <button class="btn btn-success" data-component="crn-button" ng-click="datasource.startEditing()"><i class="glyphicon glyphicon-edit"></i></button>
+                <button class="btn btn-primary" data-component="crn-button" ng-disabled="!datasource.hasPrevious()" ng-click="datasource.previous()"><i class="glyphicon glyphicon-chevron-left"></i></button>
+                <button class="btn btn-primary" data-component="crn-button" ng-disabled="!datasource.hasNext()" ng-click="datasource.next()"><i class="glyphicon glyphicon-chevron-right"></i></button>
+                <button class="btn btn-primary" data-component="crn-button" ng-click="datasource.remove()"><i class="glyphicon glyphicon-trash"></i></button>
+            </div>
+            <div class="active-bar" ng-hide="!datasource.editing &amp;&amp; !datasource.inserting">
+                <button class="btn btn-success" data-component="crn-button" ng-click="datasource.post()"><i class="glyphicon glyphicon-ok"></i></button>
+                <button class="btn btn-danger" data-component="crn-button" ng-click="datasource.cancel()"><i class="glyphicon glyphicon-remove"></i></button>
+            </div>
+            <br/>
+            <fieldset ng-disabled="!datasource.editing &amp;&amp; !datasource.inserting">
+                    <datasource name="Atendimento" entity="api/cronapi/crud/app.entity.Atendimento" keys="id" class="" dependent-by="{{Resposta}}"></datasource>
+
+                <div data-component="crn-combobox-dynamic" id="crn-combobox-dynamic-atendimento" class="">
+                    <div class="form-group">
+                        <label for="combobox-dynamic-atendimento" class="">Atendimento</label>
+ <!-- else for if !model.hasCronappFramework() -->
+                                <ui-select ng-model="Resposta.active.atendimento" crn-datasource="Atendimento" class="crn-select" id="combobox-dynamic-atendimento" ng-required="false" theme="bootstrap">
+                                    <ui-select-match class="" placeholder="Select...">
+                                        {{$select.selected.canalAtendimento}}
+                                    </ui-select-match>
+                                    <ui-select-choices  repeat="rowData in datasource.data | filter : $select.search" class="" refresh="" refresh-deplay="">
+                                        <div class="" data-container="true">
+                                            {{rowData.canalAtendimento}}
+                                        </div>
+                                    </ui-select-choices>
+                                </ui-select>
+                         <!-- end if !model.hasCronappFramework() -->
+                    </div>
+                </div>
+
+                <div data-component="crn-textinput" id="crn-textinput-resumoResposta" class="">
+                    <div class="form-group">
+                        <label for="textinput-resumoResposta" class="">Resumo Resposta</label>
+ <!-- else for if !model.hasCronappFramework() -->
+                                <input
+                                            type="text"
+                                            ng-model="Resposta.active.resumoResposta"
+                                            class="form-control"
+                                            id="textinput-resumoResposta"
+                                            placeholder="Resumo Resposta"
+                                            mask=""
+                                            mask-placeholder=""
+                                            ng-required="false">
+                         <!-- end if !model.hasCronappFramework() -->
+                    </div>
+                </div>
+                <!-- NtoN  -->
+                <!-- NtoN  end-->
+            </fieldset>
+        </form>
+        <form>
+            <fieldset>
+                <!-- OneToN -->
+                <!--query filter 1toN -->
+                <!-- query filter 1toN end-->
+                <datasource filter="" name="AvaliacaoAtendimentoGrid" enabled="{{Resposta.editing || Resposta.inserting}}" entity="api/cronapi/crud/app.entity.Resposta/{{Resposta.active.id}}/relation:resposta:AvaliacaoAtendimento" keys="id" rows-per-page="100" lazy="true" auto-post="true" dependent-lazy-post="Resposta" dependent-lazy-post-field="resposta"></datasource>
+                <div data-component="crn-button" class="">
+                    <button class="btn btn-primary" onclick="$('#modalAvaliacaoAtendimentoGrid').modal('show');" data-component="crn-button" ng-click="AvaliacaoAtendimentoGrid.startInserting();"><i class="fa fa-plus"></i> 
+						<span class="">{{"Add" | translate}} </span> 
+					</button>
+                </div>
+                <!--search 1toN-->
+                <!-- seach 1toN end-->
+                <div data-component="crn-textinput" id="crn-textinput-descricao">
+                    <div class="form-group">
+                        <label for="textinput-descricao" class="">
+							
+						</label>
+                        <div class="component-holder" data-component="crn-grid" id="crn-grid-AvaliacaoAtendimentoGrid">
+                            <div crn-datasource="AvaliacaoAtendimentoGrid">
+                                <table class="table table-bordered table-hover table-striped">
+                                    <thead>
+                                    <tr class="table-header">
+                                                <th class="">
+                                                    <div class="">
+                                                        Nota Avalicao Atendimento
+                                                    </div>
+                                                </th>
+                                                <th class="">
+                                                    <div class="">
+                                                        Resumo Avaliacao Atendimento
+                                                    </div>
+                                                </th>
+                                                <th class="">
+                                                    <div class="">
+                                                        Nota Plataforma
+                                                    </div>
+                                                </th>
+                                                <th class="">
+                                                    <div class="">
+                                                        Indicaria Plataforma
+                                                    </div>
+                                                </th>
+                                                <th class="">
+                                                    <div class="">
+                                                        Resumo Plataforma
+                                                    </div>
+                                                </th>
+                                                <th class="">
+                                                    <div class="">
+                                                        Status Atendimento
+                                                    </div>
+                                                </th>
+                                                <th class="">
+                                                    <div class="">
+                                                        Sugestao Melhoria
+                                                    </div>
+                                                </th>
+                                                <th class="">
+                                                    <div class="">
+                                                        Atendimento
+                                                    </div>
+                                                </th>
+                                                <th class="">
+                                                    <div class="">
+                                                        Data Acaliacao
+                                                    </div>
+                                                </th>
+                                        <th class="">
+                                            <div class="">
+                                                {{"template.crud.actions" | translate}}
+                                            </div>
+                                        </th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr class="table-content" ng-repeat="rowData in datasource.data">
+                                                <td>
+                                                    <div>
+                                                            {{rowData.notaAvalicaoAtendimento }}
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div>
+                                                            {{rowData.resumoAvaliacaoAtendimento }}
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div>
+                                                            {{rowData.notaPlataforma }}
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div>
+                                                            {{rowData.indicariaPlataforma }}
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div>
+                                                            {{rowData.resumoPlataforma }}
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div>
+                                                            {{rowData.statusAtendimento }}
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div>
+                                                            {{rowData.sugestaoMelhoria }}
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div>
+                                                            {{rowData.atendimento.canalAtendimento }}
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div>
+                                                            {{rowData.dataAcaliacao | mask:'DD/MM/YYYY HH:mm:ss'}}
+                                                    </div>
+                                                </td>
+                                        <td>
+                                            <div>
+                                                <button class="btn btn-default btn-sm" data-component="crn-button" ng-click="datasource.startEditing(rowData)" onclick="$('#modalAvaliacaoAtendimentoGrid').modal('show');" ><i class="fa fa-edit"></i></button>
+                                                <button class="btn btn-default btn-sm" data-component="crn-button" ng-click="datasource.remove(rowData)"><i class="fa fa-times"></i></button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                                <div class="table-footer-controls">
+                                    <button class="btn btn-default btn-block btn-clicked" data-component="crn-button" ng-show="datasource.hasNextPage()" ng-click="datasource.nextPage()" content="{{&quot;template.crud.load_more&quot; | translate}}...">{{"template.crud.load_more" | translate}}...</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- OneToOne  end -->
+            </fieldset>
+        </form>
+    </div>
+</div>
+
+
+<!-- OneToOne modal -->
+<div class="modal fade" id="modalAvaliacaoAtendimentoGrid">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form>
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="{{'Home.view.Close' | translate}}"><span aria-hidden="true">×</span></button>
+                    <h4 class="modal-title">AvaliacaoAtendimento</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="list-group list-group-sm row">
+<!-- else of !model.hasCronappFramework() -->
+                             <!-- end if !model.hasCronappFramework() -->
+
+<!-- else of !model.hasCronappFramework() -->
+
+                                    <div data-component="crn-textinput"  id="crn-textinput-notaAvalicaoAtendimento" class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                                        <div class="form-group">
+                                            <label for="textinput-notaAvalicaoAtendimento">Nota Avalicao Atendimento</label>
+                                                <input type="integer"
+                                                       ng-model="AvaliacaoAtendimentoGrid.active.notaAvalicaoAtendimento" class="form-control"
+                                                       id="textinput-notaAvalicaoAtendimento"
+                                                       placeholder="Nota Avalicao Atendimento"
+                                                       mask=""
+                                                       mask-placeholder=""
+                                                    ng-required="true">
+                                        </div>
+                                    </div>
+                             <!-- end if !model.hasCronappFramework() -->
+
+<!-- else of !model.hasCronappFramework() -->
+
+                                    <div data-component="crn-textinput"  id="crn-textinput-resumoAvaliacaoAtendimento" class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                                        <div class="form-group">
+                                            <label for="textinput-resumoAvaliacaoAtendimento">Resumo Avaliacao Atendimento</label>
+                                                <input type="text"
+                                                       ng-model="AvaliacaoAtendimentoGrid.active.resumoAvaliacaoAtendimento" class="form-control"
+                                                       id="textinput-resumoAvaliacaoAtendimento"
+                                                       placeholder="Resumo Avaliacao Atendimento"
+                                                       mask=""
+                                                       mask-placeholder=""
+                                                    ng-required="false">
+                                        </div>
+                                    </div>
+                             <!-- end if !model.hasCronappFramework() -->
+
+<!-- else of !model.hasCronappFramework() -->
+
+                                    <div data-component="crn-textinput"  id="crn-textinput-notaPlataforma" class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                                        <div class="form-group">
+                                            <label for="textinput-notaPlataforma">Nota Plataforma</label>
+                                                <input type="integer"
+                                                       ng-model="AvaliacaoAtendimentoGrid.active.notaPlataforma" class="form-control"
+                                                       id="textinput-notaPlataforma"
+                                                       placeholder="Nota Plataforma"
+                                                       mask=""
+                                                       mask-placeholder=""
+                                                    ng-required="true">
+                                        </div>
+                                    </div>
+                             <!-- end if !model.hasCronappFramework() -->
+
+<!-- else of !model.hasCronappFramework() -->
+
+                                    <div data-component="crn-textinput"  id="crn-textinput-indicariaPlataforma" class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                                        <div class="form-group">
+                                            <label for="textinput-indicariaPlataforma">Indicaria Plataforma</label>
+                                                <input type="checkbox"
+                                                       ng-model="AvaliacaoAtendimentoGrid.active.indicariaPlataforma" class="form-control"
+                                                       id="textinput-indicariaPlataforma"
+                                                       placeholder="Indicaria Plataforma"
+                                                       mask=""
+                                                       mask-placeholder=""
+                                                    ng-required="true">
+                                        </div>
+                                    </div>
+                             <!-- end if !model.hasCronappFramework() -->
+
+<!-- else of !model.hasCronappFramework() -->
+
+                                    <div data-component="crn-textinput"  id="crn-textinput-resumoPlataforma" class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                                        <div class="form-group">
+                                            <label for="textinput-resumoPlataforma">Resumo Plataforma</label>
+                                                <input type="text"
+                                                       ng-model="AvaliacaoAtendimentoGrid.active.resumoPlataforma" class="form-control"
+                                                       id="textinput-resumoPlataforma"
+                                                       placeholder="Resumo Plataforma"
+                                                       mask=""
+                                                       mask-placeholder=""
+                                                    ng-required="false">
+                                        </div>
+                                    </div>
+                             <!-- end if !model.hasCronappFramework() -->
+
+<!-- else of !model.hasCronappFramework() -->
+
+                                    <div data-component="crn-textinput"  id="crn-textinput-statusAtendimento" class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                                        <div class="form-group">
+                                            <label for="textinput-statusAtendimento">Status Atendimento</label>
+                                                <input type="number"
+                                                       ng-model="AvaliacaoAtendimentoGrid.active.statusAtendimento" class="form-control"
+                                                       id="textinput-statusAtendimento"
+                                                       placeholder="Status Atendimento"
+                                                       mask=""
+                                                       mask-placeholder=""
+                                                    ng-required="true">
+                                        </div>
+                                    </div>
+                             <!-- end if !model.hasCronappFramework() -->
+
+<!-- else of !model.hasCronappFramework() -->
+
+                                    <div data-component="crn-textinput"  id="crn-textinput-sugestaoMelhoria" class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                                        <div class="form-group">
+                                            <label for="textinput-sugestaoMelhoria">Sugestao Melhoria</label>
+                                                <input type="text"
+                                                       ng-model="AvaliacaoAtendimentoGrid.active.sugestaoMelhoria" class="form-control"
+                                                       id="textinput-sugestaoMelhoria"
+                                                       placeholder="Sugestao Melhoria"
+                                                       mask=""
+                                                       mask-placeholder=""
+                                                    ng-required="false">
+                                        </div>
+                                    </div>
+                             <!-- end if !model.hasCronappFramework() -->
+
+<!-- else of !model.hasCronappFramework() -->
+                                        <datasource name="AtendimentoGridForUiSelect" entity="api/cronapi/crud/app.entity.Atendimento" keys="id" rows-per-page="100" lazy="true" enabled="{{Resposta.editing || Resposta.inserting}}" ></datasource>
+                                        <div data-component="crn-combobox-dynamic" id="crn-combobox-AvaliacaoAtendimentoGrid.active.atendimento" class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                                            <div class="form-group">
+                                                <label for="combobox-atendimento" class="">Atendimento</label>
+                                                <ui-select ng-model="AvaliacaoAtendimentoGrid.active.atendimento" crn-datasource="AtendimentoGridForUiSelect" class="crn-select" id="combobox-atendimento" ng-required="false" ng-disabled="disabled" theme="bootstrap" >
+                                                    <ui-select-match placeholder="Select..." class="">
+                                                        {{$select.selected.canalAtendimento}}
+                                                    </ui-select-match>
+                                                    <ui-select-choices repeat="rowData in datasource.data | filter : $select.search" class="" refresh="" refresh-deplay="">
+                                                        <div class="">
+                                                            {{rowData.canalAtendimento}}
+                                                        </div>
+                                                    </ui-select-choices>
+                                                </ui-select>
+                                            </div>
+                                        </div>
+                             <!-- end if !model.hasCronappFramework() -->
+
+<!-- else of !model.hasCronappFramework() -->
+                             <!-- end if !model.hasCronappFramework() -->
+
+<!-- else of !model.hasCronappFramework() -->
+
+                                    <div data-component="crn-textinput"  id="crn-textinput-dataAcaliacao" class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                                        <div class="form-group">
+                                            <label for="textinput-dataAcaliacao">Data Acaliacao</label>
+                                                <input type="datetime"
+                                                       ng-model="AvaliacaoAtendimentoGrid.active.dataAcaliacao" class="form-control"
+                                                       id="textinput-dataAcaliacao"
+                                                       placeholder="Data Acaliacao"
+                                                       mask="DD/MM/YYYY HH:mm:ss"
+                                                       mask-placeholder=""
+                                                    ng-required="false">
+                                        </div>
+                                    </div>
+                             <!-- end if !model.hasCronappFramework() -->
+
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-primary" data-component="crn-button" ng-click="AvaliacaoAtendimentoGrid.post();" onclick="(!AvaliacaoAtendimentoGrid.missingRequiredField()?$('#modalAvaliacaoAtendimentoGrid').modal('hide'):void(0))">{{'Save' | translate}}</button>
+                    <button type="button" class="btn btn-default" data-component="crn-button" data-dismiss="modal">{{'Home.view.Close' | translate}}</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- OneToOne modal end-->

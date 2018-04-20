@@ -1,0 +1,13 @@
+
+
+
+[data-color="true"]{
+  background-color: green;
+}
+[data-color="false"]{
+  background-color: #f5fc85;
+}
+
+.tamanhoModal { 
+  width: 60%;
+}
